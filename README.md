@@ -4,7 +4,7 @@ Script to parse out pictures from videoframes
 Usage:
   video_stills.py --video_adress=[adress to video] --save_location=[location to save images] --skip_frames=[number of frames to capture]
   
-1.Clone with got "git clone"
+1.Clone with "git clone [adress to repo]"
 
 2.Create virtual env and install dependencies from requirements.txt
 
