@@ -1,23 +1,21 @@
+
+
 import h5py as h5
 import numpy as np
 from scipy.interpolate import interp1d
 import os, glob
-import statistics
-from statistics import mean 
-import utilities.utilities as utils
-import matplotlib.pyplot as plt
+
+import utilities as utils
+
 import re 
-import chunking
-import plottings 
+
 import pickle
-import pandas as pd 
-import getcarid 
+
 import plottings_no_spdlimt
 
 def get_carid(filename):
         car_id = filename.split('_')
         return f'Car_{car_id[1]}'
-
 
 #Specify the needed signals here
 test = utils.Utilities()
@@ -47,7 +45,7 @@ interp_strategy = ['zero','zero','zero','zero','zero','zero','zero','zero','zero
 # The following code crawls through the whole month of data and fecthes the names of all data files in a list
 # In order to scale this code for the whole WICE data, we can wait for the cloud solution to be ready as processing
 # the whole data uwill consume too much of computtaional/storage resources 
-directory=r'/home/pamadmin/WICE/2022-09'
+directory=r'\\gotgnmh091.got.volvocars.net\9413-APP-NASsympathy\data_SREC\2021-02'
 
 files = []
 for filename in glob.iglob(directory+ '**/**', recursive=True):
@@ -65,23 +63,23 @@ for id in carids:
         unique_ids.append(id)
 # Filling complete filenames of a the same id in one list
 
-	list_of_lists= []      
-	for id in range(len(unique_ids)):
-	    slider = 0
-	    temp_list = []
-	    for f in range(len(files_trm)):
-	        match = re.search(unique_ids[id][0], files_trm[f])
-	        if match:
-	          print(f'id:{id}')
-	          print(f'f:{f}')
-	          print(f'slider:{slider}')
-	          print('found')
-	          ff = files_trm[f]
-	          temp_list.append(ff)
-	          slider+=1
-	        else:
-	           print('did not find')
-	    list_of_lists.append(temp_list)        
+list_of_lists= []      
+for id in range(len(unique_ids)):
+    slider = 0
+    temp_list = []
+    for f in range(len(files_trm)):
+        match = re.search(unique_ids[id][0], files_trm[f])
+        if match:
+          print(f'id:{id}')
+          print(f'f:{f}')
+          print(f'slider:{slider}')
+          print('found')
+          ff = files_trm[f]
+          temp_list.append(ff)
+          slider+=1
+        else:
+           print('did not find')
+    list_of_lists.append(temp_list)        
         
 ##################################################################################
 # Set here how many cars you want to analyze with respect to their size of 
@@ -121,9 +119,3 @@ for cars in range(len(carids)):
     with open("mis_signals_tst"+f"_{current_car}", "wb") as fp:   #Pickling
         pickle.dump(mis_signals_tst, fp)
     
-    
-
-
-
-
-
